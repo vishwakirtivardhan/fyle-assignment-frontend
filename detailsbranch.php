@@ -45,6 +45,7 @@ $datastring="";
 
 
 
+
 $count=0;
       foreach($data as $res){
         $count++;
@@ -62,6 +63,23 @@ $count=0;
                 
       }
 
+}
+
+if($data==NULL){
+
+    $datastring=  "<tr>
+                    <th scope='row'> No Data Found</th>
+                    <td> No Data Found </td>
+                    <td> No Data Found</td>
+
+                    <td> No Data Found</td>
+                    <td> No Data Found</td>
+
+                    <td> No Data Found </td>
+                    <td> No Data Found </td>
+                </tr>";
+              
+    
 }
 
 echo $datastring;

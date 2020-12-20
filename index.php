@@ -98,59 +98,81 @@ if ($resultbank === FALSE) {
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <linl rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-        
-            <!-- Popper JS -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 
-            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-        
-            <style>
-            body {
-                padding: 20px 20px;
-            }
 
-            .results tr[visible='false'],
-            .no-result {
-                display: none;
-            }
+        <style>
+        body {
+            padding: 20px 20px;
+        }
 
-            .results tr[visible='true'] {
-                display: table-row;
-            }
+        .results tr[visible='false'],
+        .no-result {
+            display: none;
+        }
 
-            .counter {
-                padding: 8px;
-                color: #ccc;
-            }
-            </style>
+        .results tr[visible='true'] {
+            display: table-row;
+        }
+
+        .counter {
+            padding: 8px;
+            color: #ccc;
+        }
+
+        .dropdownselect {
+
+            padding: 2% 10% 2% 10%;
+            box-shadow: -2px 2px 13px #8e89894a;
+            border-radius: 5px;
+            margin-bottom: 50px;
+        }
+
+        select {
+            padding: 9px;
+            margin-left: 5px;
+            float: left;
+            border-radius: 6px;
+        }
+
+        .col-xl-6 {
+            max-width: 48%;
+        }
+
+        select:hover {
+            background: #0a0a0a21;
+        }
+        </style>
 
 </head>
 
 <body>
-    <div>
-        <form>
+    <div class="container">
+        <div class="dropdownselect row">
+            <label class="form-group col-6 col-xl-6">Select Bank*</label>
+            <label class="form-group col-6 col-xl-6">Select City*</label>
 
-
-
-            <select class="dropdown" onchange="branchcheck(this.value)" id="bank">
+            <select class="form-group col-6 col-xl-6" onchange="branchcheck(this.value)" id="bank">
+                <option>Select-Bank-First</option>
                 <?php foreach($bankdata as $res){ ?>
                 <option class="" value="<?php echo $res->id; ?>"><?php echo $res->name; ?></option>
 
                 <?php } ?>
             </select>
 
-            <select class="form-group" id="branch" onchange="getbranchdetails(this.value)">
+            <select class="form-group col-6 col-xl-6" id="branch" onchange="getbranchdetails(this.value)">
                 <option class="" value="">Select Branch</option>
 
             </select>
-
-
-        </form>
+        </div>
 
 
         <!-- Latest compiled JavaScript -->
@@ -162,13 +184,13 @@ if ($resultbank === FALSE) {
             $('#example').DataTable();
         });
         </script> -->
-<!-- 
+        <!-- 
         <script>
         $(document).ready(function() {
             $('#example').DataTable();
         });
         </script> -->
-<!--         
+        <!--         
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
@@ -228,51 +250,52 @@ if ($resultbank === FALSE) {
                 </tr>
             </tfoot>
         </table> -->
+        <span id="tables" style="display:none;">
+            <div class="form-group pull-right">
+                <input type="text" class="search form-control" placeholder="Search">
+            </div>
+            <span class="counter pull-right"></span>
+            <table class="table table-hover table-bordered results">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="col-md-2 col-xs-2">Ifsc Code</th>
+                        <th class="col-md-2 col-xs-2">Bank Id</th>
+                        <th class="col-md-2 col-xs-2">Branch</th>
+                        <th class="col-md-2 col-xs-2">Address</th>
+                        <th class="col-md-2 col-xs-2">City</th>
+                        <th class="col-md-2 col-xs-2">State</th>
 
-        <div class="form-group pull-right">
-            <input type="text" class="search form-control" placeholder="What you looking for?">
-        </div>
-        <span class="counter pull-right"></span>
-        <table class="table table-hover table-bordered results">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th class="col-md-2 col-xs-2">Ifsc Code</th>
-                    <th class="col-md-2 col-xs-2">Bank Id</th>
-                    <th class="col-md-2 col-xs-2">Branch</th>
-                    <th class="col-md-2 col-xs-2">Address</th>
-                    <th class="col-md-2 col-xs-2">City</th>
-                    <th class="col-md-2 col-xs-2">State</th>
-
-                </tr>
-                <tr class="warning no-result">
-                    <td colspan="4"><i class="fa fa-warning"></i> No result</td>
-                </tr>
-            </thead>
-            <tbody id="banksdetails">
+                    </tr>
+                    <tr class="warning no-result">
+                        <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+                    </tr>
+                </thead>
+                <tbody id="banksdetails">
 
 
-                <!-- <?php
-    //   $count=0;
-    //   foreach($data as $res){
-      ?>
-                <tr>
-                    <th scope="row"><?php //echo $count++; ?></th>
-                    <td><?php// echo $res->ifsc; ?></td>
-                    <td><?php //echo $res->bank_id; ?></td>
+                    <!-- <?php
+                    //   $count=0;
+                    //   foreach($data as $res){
+                    ?>
+                                <tr>
+                                    <th scope="row"><?php //echo $count++; ?></th>
+                                    <td><?php// echo $res->ifsc; ?></td>
+                                    <td><?php //echo $res->bank_id; ?></td>
 
-                    <td><?php// echo $res->branch; ?></td>
-                    <td><?php// echo $res->address; ?></td>
+                                    <td><?php// echo $res->branch; ?></td>
+                                    <td><?php// echo $res->address; ?></td>
 
-                    <td><?// echo $res->city; ?></td>
-                    <td><?php// echo $res->state; ?></td>
-                </tr>
-                <?php
-  //    }
-      ?> -->
+                                    <td><?// echo $res->city; ?></td>
+                                    <td><?php// echo $res->state; ?></td>
+                                </tr>
+                                <?php
+                //    }
+                    ?> -->
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </span>
     </div>
 
     <script>
@@ -287,6 +310,7 @@ if ($resultbank === FALSE) {
 
         reqes.onreadystatechange = function() {
             if (reqes.readyState == 4 && reqes.status === 200) {
+                document.getElementById('tables').style.display="block";
                 //console.log(req.responseText);
                 document.getElementById('banksdetails').innerHTML = reqes.responseText;
                 //console.log(document.getElementById('branch').innerHTML = req.responseText);
