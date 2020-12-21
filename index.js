@@ -16,7 +16,7 @@ branchcheck(valuebank);
     console.log(bankname);
     // bankname=bankname.
     var reqes = new XMLHttpRequest();
-    reqes.open("POST", "https://test1-php.herokuapp.com/api/ajaxbank.php?bankname="+bankname.toUpperCase(), true);
+    reqes.open("POST", "https://test1-php.herokuapp.com/ajaxbank.php?bankname="+bankname.toUpperCase(), true);
     reqes.send();
     reqes.onreadystatechange = function() {
         if (reqes.readyState == 4 && reqes.status === 200) {
@@ -36,7 +36,7 @@ branchcheck(valuebank);
     let bank_id = document.getElementById('bank').value;
     //console.log(bank_id);
     var reqes = new XMLHttpRequest();
-    reqes.open("POST", "https://test1-php.herokuapp.com/api/detailsbranch.php?city=" + city + "&&bank_id=" + bank_id, true);
+    reqes.open("POST", "https://test1-php.herokuapp.com/detailsbranch.php?city=" + city + "&&bank_id=" + bank_id, true);
     reqes.send();
     reqes.onreadystatechange = function() {
         if (reqes.readyState == 4 && reqes.status === 200) {
