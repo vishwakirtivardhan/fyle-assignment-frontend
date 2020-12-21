@@ -1,113 +1,12 @@
-<?php
-
-$url = 'http://localhost/fylepro1/public/api/data';
-$data = array('city' => 'AKOT');
-
-// use key 'http' even if you send the request to https://...
-$options = array(
-    'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\ndatakey:ABCD454545545\r\n",
-        'method'  => 'POST',
-        'content' => http_build_query($data)
-    )
-);
- $context  = stream_context_create($options);
-
-$result = file_get_contents($url, false, $context);
-if ($result === FALSE) { 
-
-    print("you are not authrized");
- }
-
- //$k=preg_replace('/\s+/', '',$result);
- //echo gettype($result);
- //print_r($k);
-  $data=json_decode($result);
- //echo gettype($data);
-//print($data[6]->bank_id);
-
-
-//---------- This is code for the bank APi fetch --------//
-$url = 'http://localhost/fylepro1/public/api/bankdata';
-//$data = array('city' => 'AKOT');
-
-// use key 'http' even if you send the request to https://...
-$optionsbank = array(
-    'http' => array(
-        'header'  => "Content-type: application/x-www-form-urlencoded\r\ndatakey:ABCD454545545\r\n",
-        'method'  => 'POST',
-  
-    )
-);
- $contextbank  = stream_context_create($optionsbank);
-
-$resultbank = file_get_contents($url, false, $contextbank);
-if ($resultbank === FALSE) { 
-
-    print("you are not authrized");
- }
-
- //$k=preg_replace('/\s+/', '',$result);
- //echo gettype($resultbank);
- //print_r($k);
-  $bankdata=json_decode($resultbank);
-  //print_r($bankdata);
-// ******** End ********** //
-
-///******* This is second way to connec the RestAPI ********* */
-// $url = 'http://localhost/fylepro1/public/api/data';
-
-// //The data you want to send via POST
-// $fields = [
-       
-//        // 'method'  => 'POST',
-//         //'content' => http_build_query($data)
-//         'city' => 'AKOT'
-//     ];
-// $header=[
-//     'Content-type'=> 'application/x-www-form-urlencoded',
-//     'datakey'=>'ABCD454545545'
-// ];
-// //url-ify the data for the POST
-// $fields_string = http_build_query($fields);
-
-// //open connection
-// $ch = curl_init();
-
-// //set the url, number of POST vars, POST data
-// curl_setopt($ch, CURLOPT_HEADER,$header);
-// curl_setopt($ch,CURLOPT_URL, $url);
-// curl_setopt($ch,CURLOPT_POST, true);
-
-// curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-
-// //So that curl_exec returns the contents of the cURL; rather than echoing it
-// curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
-
-// //execute post
-// $result = curl_exec($ch);
-// echo $result;
-
-?>
-
 <html>
 
 <head>
-
     <!-- Latest compiled and minified CSS -->
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <linl rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-
-        <!-- Popper JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
-
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 
         <style>
         body {
@@ -136,19 +35,48 @@ if ($resultbank === FALSE) {
             margin-bottom: 50px;
         }
 
+        #search,
         select {
             padding: 9px;
             margin-left: 5px;
             float: left;
+            border: 1px solid #00000078;
             border-radius: 6px;
+            height: 45px;
         }
 
         .col-xl-6 {
             max-width: 48%;
         }
 
+        input,
         select:hover {
             background: #0a0a0a21;
+        }
+
+        #banklist {
+            position: absolute;
+            z-index: 9999;
+            margin-left: 8px;
+            margin-top: 53px;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #00000069;
+            list-style: none;
+            border-radius: 6px;
+            box-shadow: 1px 3px 7px #8e9296a6;
+        }
+
+        #banklist li {
+            padding: 5px 10px 5px 10px;
+            border: 1px solid;
+            border-radius: 3px;
+            margin: 10px 7px;
+            cursor: pointer;
+        }
+
+        #banklist li:hover {
+            background: white;
         }
         </style>
 
@@ -157,16 +85,24 @@ if ($resultbank === FALSE) {
 <body>
     <div class="container">
         <div class="dropdownselect row">
-            <label class="form-group col-6 col-xl-6">Select Bank*</label>
+            <label class="form-group col-6 col-xl-6">Search Bank*</label>
             <label class="form-group col-6 col-xl-6">Select City*</label>
 
-            <select class="form-group col-6 col-xl-6" onchange="branchcheck(this.value)" id="bank">
+            <!-- <select class="form-group col-6 col-xl-6" onchange="branchcheck(this.value)" id="bank">
                 <option>Select-Bank-First</option>
-                <?php foreach($bankdata as $res){ ?>
-                <option class="" value="<?php echo $res->id; ?>"><?php echo $res->name; ?></option>
+                <?php //foreach($bankdata as $res){ ?>
+                <option class="" value="<?php //echo $res->id; ?>"><?php// echo $res->name; ?></option>
 
-                <?php } ?>
-            </select>
+                <?php// } ?>
+            </select> -->
+            <div class="form-group col-6 col-xl-6">
+                <div class="input-group mb-3">
+                    <input type="text" onkeyup="bankautocomplete(this.value)" id="search" value="" class="form-control"
+                        placeholder="Search Bank Here">
+                    <input type="number" style="display:none;" oninput="branchcheck(this.value)" id="bank">
+                    <ul id="banklist" style="display:none"></ul>
+                </div>
+            </div>
 
             <select class="form-group col-6 col-xl-6" id="branch" onchange="getbranchdetails(this.value)">
                 <option class="" value="">Select Branch</option>
@@ -174,82 +110,6 @@ if ($resultbank === FALSE) {
             </select>
         </div>
 
-
-        <!-- Latest compiled JavaScript -->
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-        <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-        </script> -->
-        <!-- 
-        <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-        </script> -->
-        <!--         
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr>
-            </thead>
-            <tbody id="banksdetails">
-            <tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr><tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr><tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr><tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>#</th>
-                    <th>Ifsc Code</th>
-                    <th>Bank Id</th>
-                    <th>Branch</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                </tr>
-            </tfoot>
-        </table> -->
         <span id="tables" style="display:none;">
             <div class="form-group pull-right">
                 <input type="text" class="search form-control" placeholder="Search">
@@ -271,105 +131,12 @@ if ($resultbank === FALSE) {
                         <td colspan="4"><i class="fa fa-warning"></i> No result</td>
                     </tr>
                 </thead>
-                <tbody id="banksdetails">
-
-
-                    <!-- <?php
-                    //   $count=0;
-                    //   foreach($data as $res){
-                    ?>
-                                <tr>
-                                    <th scope="row"><?php //echo $count++; ?></th>
-                                    <td><?php// echo $res->ifsc; ?></td>
-                                    <td><?php //echo $res->bank_id; ?></td>
-
-                                    <td><?php// echo $res->branch; ?></td>
-                                    <td><?php// echo $res->address; ?></td>
-
-                                    <td><?// echo $res->city; ?></td>
-                                    <td><?php// echo $res->state; ?></td>
-                                </tr>
-                                <?php
-                //    }
-                    ?> -->
-
-                </tbody>
+                <tbody id="banksdetails"> </tbody>
             </table>
         </span>
     </div>
 
-    <script>
-    function getbranchdetails(city) {
-        let bank_id = document.getElementById('bank').value;
-        console.log(bank_id);
-        //alert(bank_id);
-
-        var reqes = new XMLHttpRequest();
-        reqes.open("POST", "http://localhost/api/detailsbranch.php?city=" + city + "&&bank_id=" + bank_id, true);
-        reqes.send();
-
-        reqes.onreadystatechange = function() {
-            if (reqes.readyState == 4 && reqes.status === 200) {
-                document.getElementById('tables').style.display="block";
-                //console.log(req.responseText);
-                document.getElementById('banksdetails').innerHTML = reqes.responseText;
-                //console.log(document.getElementById('branch').innerHTML = req.responseText);
-            }
-        }
-    }
-
-
-
-
-    function branchcheck(data) {
-        //alert(data);
-        var req = new XMLHttpRequest();
-        req.open("POST", "http://localhost/api/ajaxbranch.php?datavalue=" + data, true);
-        req.send();
-
-        req.onreadystatechange = function() {
-            if (req.readyState == 4 && req.status === 200) {
-                //console.log(req.responseText);
-                document.getElementById('branch').innerHTML = req.responseText;
-                //console.log(document.getElementById('branch').innerHTML = req.responseText);
-            }
-        }
-    }
-    </script>
-    <script>
-    $(document).ready(function() {
-        $(".search").keyup(function() {
-            var searchTerm = $(".search").val();
-            var listItem = $('.results tbody').children('tr');
-            var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-
-            $.extend($.expr[':'], {
-                'containsi': function(elem, i, match, array) {
-                    return (elem.textContent || elem.innerText || '').toLowerCase().indexOf(
-                        (match[3] || "").toLowerCase()) >= 0;
-                }
-            });
-
-            $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e) {
-                $(this).attr('visible', 'false');
-            });
-
-            $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e) {
-                $(this).attr('visible', 'true');
-            });
-
-            var jobCount = $('.results tbody tr[visible="true"]').length;
-            $('.counter').text(jobCount + ' item');
-
-            if (jobCount == '0') {
-                $('.no-result').show();
-            } else {
-                $('.no-result').hide();
-            }
-        });
-    });
-    </script>
-
+    <script src="index.js"></script>
 
 </body>
 

@@ -9,7 +9,8 @@
 if(isset($_GET['datavalue']))
 {
 
-    $url = 'http://localhost/fylepro1/public/api/bankbanch';
+    //$url = 'http://localhost/fylepro1/public/api/bankbanch';
+  $url='https://sheltered-chamber-04174.herokuapp.com/api/bankbanch';  
 $data = array('bank_id' => $bank_id);
 
 // use key 'http' even if you send the request to https://...

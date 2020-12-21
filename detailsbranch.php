@@ -8,7 +8,8 @@
 if(isset($_GET['city']))
 {
 
-    $url = 'http://localhost/fylepro1/public/api/bankbanchdetails';
+    //$url = 'http://localhost/fylepro1/public/api/bankbanchdetails';
+    $url='https://sheltered-chamber-04174.herokuapp.com/api/bankbanchdetails';
 $data = array('bank_id' => $bank_id,'city'=>$city);
 
 // use key 'http' even if you send the request to https://...
