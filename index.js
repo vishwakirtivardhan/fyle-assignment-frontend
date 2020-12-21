@@ -1,15 +1,32 @@
 
 // ********* ********* This is Js code ********* ********* //
 
+
+// ********* This code for the select the value from dropdown list of bank ********* //
+
 function addInput(valuebank,text){
-//alert(valuebank);
-document.getElementById('bank').value=valuebank;
-document.getElementById('search').value=text;
-document.getElementById('banklist').style.display="none";
-branchcheck(valuebank);
-}
-
-
+    //alert(valuebank);
+    document.getElementById('bank').value=valuebank;
+    document.getElementById('search').value=text;
+    document.getElementById('banklist').style.display="none";
+    branchcheck(valuebank);
+    }
+    
+    // ********* End ********* //
+    
+    // ********* This is Code for the list hide when focus out from inputbox search bank ********* //
+    
+    $(document).mouseup(function(e){
+        var container = $("#bankslistcont");
+        var containerhide = $("#banklist");
+         if(!container.is(e.target) && container.has(e.target).length === 0){
+            containerhide.hide();
+        }
+    });
+    
+    // ********* END ********* //
+    
+    
  // ********* This is Ajax Code Js for Getting the bank name autocomplete after entering the Input box ********* //
  function bankautocomplete(bankname) {
     //let bank_id = document.getElementById('bank').value;
