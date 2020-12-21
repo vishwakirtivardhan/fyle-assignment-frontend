@@ -26,6 +26,11 @@ foreach($bankdata as $data){
     $dataString=$dataString."<li onclick='addInput(this.value,this.innerHTML)' value='$data->id'>$data->name </li>";
 
 }
+
+if($dataString==null){
+    $dataString=$dataString."<li  >No Record Found </li>";
+}
+
 echo $dataString;
 //print_r($bankdata);
 // **************** End **************** //

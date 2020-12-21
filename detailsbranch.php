@@ -52,14 +52,12 @@ $count=0;
         $count++;
               $datastring=$datastring.  "<tr>
                     <th scope='row'> $count</th>
-                    <td> $res->ifsc </td>
-                    <td> $res->bank_id</td>
-
-                    <td> $res->branch</td>
-                    <td> $res->address</td>
-
-                    <td> $res->city</td>
-                    <td> $res->state</td>
+                    <td class='col-md-2 col-xs-2'> $res->ifsc </td>
+                    <td class='col-md-2 col-xs-2'> $res->bank_id</td>
+                    <td class='col-md-2 col-xs-2'> $res->branch</td>
+                    
+                    <td class='col-md-2 col-xs-2'> $res->city</td>
+                    <td class='col-md-2 col-xs-2'> $res->state</td>
                 </tr>";
                 
       }

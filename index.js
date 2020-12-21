@@ -10,7 +10,7 @@ branchcheck(valuebank);
 }
 
 
- // ********* This is Ajax Code Js for Getting the Table after selecting the City Name ********* //
+ // ********* This is Ajax Code Js for Getting the bank name autocomplete after entering the Input box ********* //
  function bankautocomplete(bankname) {
     //let bank_id = document.getElementById('bank').value;
     console.log(bankname);
@@ -26,10 +26,6 @@ branchcheck(valuebank);
     }
 }
 // ********* End ********* //
-
-
-
-
 
  // ********* This is Ajax Code Js for Getting the Table after selecting the City Name ********* //
  function getbranchdetails(city) {

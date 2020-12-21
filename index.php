@@ -122,7 +122,7 @@
                         <th class="col-md-2 col-xs-2">Ifsc Code</th>
                         <th class="col-md-2 col-xs-2">Bank Id</th>
                         <th class="col-md-2 col-xs-2">Branch</th>
-                        <th class="col-md-2 col-xs-2">Address</th>
+                        <!-- <th class="col-md-2 col-xs-2">Address</th> -->
                         <th class="col-md-2 col-xs-2">City</th>
                         <th class="col-md-2 col-xs-2">State</th>
 
