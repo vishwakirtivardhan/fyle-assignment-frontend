@@ -4,13 +4,36 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <linl rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="index.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="index.css" rel="stylesheet">
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Fyle Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" target="_blank" href="https://test1-php.herokuapp.com/">Home <span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" target="_blank"
+                    href="https://www.notion.so/Fyle-Full-Stack-Coding-Challenge-db30c5cb91d54de1b330c16f22fc49f0">Assignmnent
+                    Link</a>
+                <a class="nav-item nav-link" target="_blank"
+                    href="https://github.com/vishwakirtivardhan/fyle-assignment-frontend">Front-end Github</a>
+                <a class="nav-item nav-link " target="_blank"
+                    href="https://github.com/vishwakirtivardhan/fyle-assignment-api">Back-end Github</a>
+                <a class="nav-item nav-link " target="_blank"
+                    href="https://drive.google.com/file/d/1nDUxwqL8jrTLABHXeTUB2z3aT5oM7F5P/view">Resume</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <div class="dropdownselect row">
             <label class="form-group col-6 col-xl-6">Search Bank*</label>
@@ -62,9 +85,9 @@
             </table>
         </span>
     </div>
-<!-- This is JS file  contain all the JS of this project -->
+    <!-- This is JS file  contain all the JS of this project -->
     <script src="index.js"></script>
-<!-- End -->
+    <!-- End -->
 </body>
 
 </html>
